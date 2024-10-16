@@ -176,16 +176,16 @@ docker ps
 ## Order Type Support
 - [x] Limit
 - [x] Market
-- [x] Post Only (只做Maker單)
-- [x] Stop Limit (止損限價單)
-- [x] Stop Market (止損市價單)
-- [ ] Take Profit Limit (止盈限價單)
-- [ ] Take Profit Market (止盈市價單)
-- [ ] Trailing Stop Market (跟蹤止損單)
-- [ ] Trailing Stop Limit (跟蹤限價單)
+- [ ] Post Only (Maker Only)
+- [x] Stop Limit 
+- [x] Stop Market
+- [ ] Take Profit Limit
+- [ ] Take Profit Market
+- [ ] Trailing Stop Market
+- [ ] Trailing Stop Limit
 - [ ] Iceberg 
-- [ ] TWAP (時間加權平均價)
-- [ ] Scaled Orders (分批下單)
+- [ ] TWAP
+- [ ] Scaled Orders
 
 
 ## References
@@ -211,56 +211,10 @@ docker ps
     - [websockets](https://github.com/binance-exchange/python-binance/blob/master/binance/websockets.py)
     - [docs](https://python-binance.readthedocs.io/en/latest/binance.html#binance.websockets.BinanceSocketManager.isolated_margin_socket)
 
-- Binance production real-time data API & URL：
-    - Spot Price Websocket: 
-        - wss://stream.binance.com:9443/ws
-    - Spot Depth Websocket: 
-        - wss://stream.binance.com:9443/ws/depth
-    - Spot Kline/Candlestick Websocket: 
-        - wss://stream.binance.com:9443/ws/kline
-    - Spot Trade Websocket: 
-        - wss://stream.binance.com:9443/ws/trade
-    - Spot User Data Websocket: 
-        - wss://stream.binance.com:9443/ws/userData
-    - Spot Order Book (L2) Websocket: 
-        - wss://stream.binance.com:9443/ws/dominance
-    - Spot Order Book (L3) Websocket: 
-        - wss://stream.binance.com:9443/ws/l3
-
-    - Futures All Market Liquidation Order Websocket: 
-        - wss://fstream.binance.com/ws
-    - Futures Account Websocket: 
-        - wss://fstream.binance.com/ws
-    - Futures Mark Price Websocket: 
-        - wss://fstream.binance.com/ws
-    - Futures Kline/Candlestick Websocket: 
-        - wss://fstream.binance.com/ws
-    - Futures Continuous Contract Kline/Candlestick Websocket: 
-        - wss://fstream.binance.com/ws
-    - Futures Index Price Candlestick Websocket: 
-        - wss://fstream.binance.com/ws
-    - Futures Mark Price Kline/Candlestick Websocket: 
-        - wss://fstream.binance.com/ws
-    - Futures Order Book Depth Websocket: 
-        - wss://fstream.binance.com/ws
-    - Futures Ticker Websocket: 
-        - wss://fstream.binance.com/ws
-    - Futures Liquidation Order Websocket: 
-        - wss://fstream.binance.com/ws
-    - Futures Force Order Websocket: 
-        - wss://fstream.binance.com/ws
-    - Futures Premium Index Websocket: 
-        - wss://fstream.binance.com/ws
-
-    - Options Market Data Websocket: 
-        - wss://fstream.binance.com/ws
-    - Leveraged Tokens Websocket: 
-        - wss://fstream.binance.com/ws
-
 - Binance Spot Testnet URL
   - https://testnet.binance.vision/api
   - WebSocket API:
-    - Spot: Spot, Margin(保證金交易), Isolated Margin(逐倉保證金交易) 
+    - Spot: Spot, Margin, Isolated Margin
         - wss://testnet.binance.vision/ws
     - Futures: Binance Futures
         - wss://testnet.binance.vision/stream
