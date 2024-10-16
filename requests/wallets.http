@@ -1,0 +1,104 @@
+########## Wallets / Spot / Balance (現貨餘額查詢) ###########
+
+### =>
+GET http://localhost:5000/balance/spot
+
+
+########## Wallets / Deposit / Addres (入金錢包地址) ##########
+
+### =>
+GET http://localhost:5000/wallets/deposit/address?network=TRX
+
+### =>
+GET http://localhost:5000/wallets/deposit/address?network=ETH
+
+
+########## Wallets / Transfer (轉帳: Spot <-> Futures) ##########
+# type:   1: spot -> futures,  2: futures -> spot
+
+### => 
+POST http://localhost:5000/wallets/transfer
+Content-Type: application/json
+
+{
+    "asset": "USDT",
+    "type": 2,
+    "amount": 1
+}
+
+### spot -> futures
+POST http://localhost:5000/wallets/transfer/spot
+Content-Type: application/json
+
+{
+    "asset": "USDT",
+    "amount": 1
+}
+
+### futures -> spot
+POST http://localhost:5000/wallets/transfer/futures
+Content-Type: application/json
+
+{
+    "asset": "USDT",
+    "amount": 1
+}
+
+
+########## Wallets / History (紀錄查詢) ##########
+
+### =>
+GET http://localhost:5000/wallets/history/transfer
+
+### =>
+GET http://localhost:5000/wallets/history/withdraw
+
+### =>
+GET http://localhost:5000/wallets/history/deposit
+
+
+########## Wallets / Withdraw (出金) ##########
+
+# walletType:  0: spot,  1: funding
+# amount:      Cannot be less than the minimum delivery amount of 10.0
+# address:
+#   - (TRX):    TJVgcdikVX9uavZmhPuTGBahyPxJ5bcYop
+#   - (ETH):    0x9d0b7b1d98a20001387f0de8e8ddc91b0126822a  ( This is not whitelisted address )
+
+### =>
+POST http://localhost:5000/wallets/withdraw
+Content-Type: application/json
+
+{
+    "network": "TRX",
+    "walletType": "0",  
+    "address": "TJVgcdikVX9uavZmhPuTGBahyPxJ5bcYop",
+    "amount": 1.0
+}
+
+# <=
+# {
+#   "code": 0,
+#   "data": {
+#     "id": "46b77fa9e8214b28893196810109493b"
+#   },
+#   "msg": "success"
+# }
+
+### =>
+POST http://localhost:5000/wallets/withdraw
+Content-Type: application/json
+
+{
+    "network": "ETH",
+    "address": "0x9d0b7b1d98a20001387f0de8e8ddc91b0126822a",
+    "walletType": "0",  
+    "amount": 1.0
+}
+
+# <=
+# {
+#   "code": -1,
+#   "data": [],
+#   "msg": "Exception: APIError(code=-4035): This address has not been whitelisted. Please add to the whitelist and try again."
+# }

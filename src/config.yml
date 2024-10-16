@@ -1,0 +1,4 @@
+binance:
+  futures:
+    account:
+      margin: 10000 

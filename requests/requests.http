@@ -1,0 +1,293 @@
+GET http://localhost:5000/api/v1/mt5_balance?margin=4827.00&balance=34027.14
+
+### 
+
+GET https://8b8e-3-112-51-9.ngrok-free.app/api/v1/mt5_balance?margin=4827.00&balance=34027.14
+
+### 
+
+POST http://localhost:5000/api/v1/mt5_balance
+Content-Type: application/json
+    
+{
+    "margin": 572.78,
+    "balance": 40698.57
+}
+
+###
+POST http://ec2-3-112-51-9.ap-northeast-1.compute.amazonaws.com:5000/api/v1/mt5_balance
+Content-Type: application/json
+    
+{
+    "margin": 966.45,
+    "balance": 59145.42 
+}
+
+### 
+
+POST https://8b8e-3-112-51-9.ngrok-free.app/api/v1/mt5_balance
+Content-Type: application/json
+    
+{
+    "margin": "4827.00",
+    "balance": "34027.14"
+}
+
+###
+
+GET http://localhost:5000/linebot
+
+### 
+GET http://localhost:5000/hello
+
+###
+POST http://localhost:5000/callback
+
+### balance/account
+
+GET http://localhost:5000/balance/account
+
+###
+GET http://ec2-3-112-51-9.ap-northeast-1.compute.amazonaws.com:5000/balance/account
+
+
+### balance/futures
+
+GET http://localhost:5000/balance/futures
+###
+GET http://ec2-3-112-51-9.ap-northeast-1.compute.amazonaws.com:5000/balance/futures
+
+### balance/funding
+GET http://localhost:5000/balance/funding
+
+###
+GET http://localhost:5000/wallets/history/transfer
+
+###
+GET http://localhost:5000/wallets/history/withdraw
+
+###
+GET http://localhost:5000/wallets/history/deposit
+
+
+########## Wallets / Spot / Balance ###########
+### 
+GET http://localhost:5000/balance/spot
+
+
+########## Wallets / Deposit / Addres ##########
+###
+GET http://localhost:5000/wallets/deposit/address?network=TRX
+###
+GET http://localhost:5000/wallets/deposit/address?network=ETH
+
+
+########## Wallets / Transfer ##########
+### 1: spot -> futures;  2: futures -> spot
+POST http://localhost:5000/wallets/transfer
+Content-Type: application/json
+
+{
+    "asset": "USDT",
+    "type": 2,
+    "amount": 1
+}
+
+### spot -> futures
+POST http://localhost:5000/wallets/transfer/spot
+Content-Type: application/json
+
+{
+    "asset": "USDT",
+    "amount": 1
+}
+
+### futures -> spot
+POST http://localhost:5000/wallets/transfer/futures
+Content-Type: application/json
+
+{
+    "asset": "USDT",
+    "amount": 1
+}
+
+########## Wallets / History ##########
+GET http://localhost:5000/wallets/history/transfer
+###
+GET http://localhost:5000/wallets/history/withdraw
+###
+GET http://localhost:5000/wallets/history/deposit
+
+
+########## Wallets / Withdraw ##########
+# walletType: 0: spot,  1: funding
+# Cannot be less than the minimum delivery amount of 10.0
+
+### TRX: TJVgcdikVX9uavZmhPuTGBahyPxJ5bcYop
+POST http://localhost:5000/wallets/withdraw
+Content-Type: application/json
+
+{
+    "network": "TRX",
+    "walletType": "0",  
+    "address": "TJVgcdikVX9uavZmhPuTGBahyPxJ5bcYop",
+    "amount": 1.0
+}
+
+# {
+#   "code": 0,
+#   "data": {
+#     "id": "46b77fa9e8214b28893196810109493b"
+#   },
+#   "msg": "success"
+# }
+
+### ETH: 0x9d0b7b1d98a20001387f0de8e8ddc91b0126822a
+# ( This is not whitelisted address )
+POST http://localhost:5000/wallets/withdraw
+Content-Type: application/json
+
+{
+    "network": "ETH",
+    "address": "0x9d0b7b1d98a20001387f0de8e8ddc91b0126822a",
+    "walletType": "0",  
+    "amount": 10.0
+}
+
+######## Exness / Deposit / Address (To be implemented) #########
+GET http://localhost:5000/exness/wallet/deposit/address?network=TRX
+###
+GET http://localhost:5000/exness/wallet/deposit/address?network=ETH
+
+# response
+# {
+#     "network": "ETH",
+#     "address": "0x9d0b7b1d98a20001387f0de8e8ddc91b0126822a",
+# }
+
+######## Exness / Wallets / Withdraw (To be implemented ) ########## 
+POST http://localhost:5000/exness/wallet/withdraw
+Content-Type: application/json
+
+{
+    "asset": "USDT",
+    "network": "TRX",
+    "address": "0x9d0b7b1d98a20001387f0de8e8ddc91b0126822a",
+    "amount": 10.0
+}
+
+######## Exness / Wallets / Spot (To be implemented) ########## 
+# 查詢現貨帳戶餘額
+GET http://localhost:5000/exness/wallet/spot?asset=USDT
+
+# 回覆
+# {
+#     "wallet": "spot",
+#     "asset": "USDT",
+#     "balance": 0.0
+# }
+
+######## Exness / Wallets / Futures (To be implemented) ##########
+# 查詢合約帳戶餘額
+GET http://localhost:5000/exness/wallet/futures?asset=USDT
+
+# 回覆
+# {
+#     "wallet": "futures",
+#     "asset": "USDT",
+#     "balance": 0.0
+# }
+
+######## Exness / Futures / Position (List) ##########
+# 查詢持倉
+GET http://localhost:5000/exness/positions
+
+# 回覆
+# {
+#     "positions": [
+#         {
+#             "symbol": "BTCUSDT",
+#             "side": "BUY",
+#             "positionAmt": "0.000",
+#             "entryPrice": "0.00000",
+#             "markPrice": "0.00000",
+#             "unRealizedProfit": "0.00000",
+#             "liquidationPrice": "0.00000",
+#             "leverage": "0.00000",
+#             "updateTime": 1615661616
+#         },
+#         {
+#             "symbol": "BTCUSDT",
+#             "side": "SELL",
+#             "positionAmt": "0.000",
+#             "entryPrice": "0.00000",
+#             "markPrice": "0.00000",
+#             "unRealizedProfit": "0.00000",
+#             "liquidationPrice": "0.00000",
+#             "leverage": "0.00000",
+#             "updateTime": 1615661616
+#         }
+#     ]
+# }
+
+
+######## Exness / Futures / Order (Create) ##########
+# 委託下單
+POST http://localhost:5000/exness/orders/futures
+Content-Type: application/json
+
+{
+    "symbol": "BTCUSDT",
+    "side": "BUY",
+    "positionAmt": "0.000",
+    "entryPrice": "0.00000",
+    "markPrice": "0.00000",
+    "unRealizedProfit": "0.00000",
+    "liquidationPrice": "0.00000",
+    "leverage": "0.00000",
+    "updateTime": 1615661616
+}
+
+# 回覆
+# {
+#     "symbol": "BTCUSDT",
+#     "side": "BUY",
+#     "positionAmt": "0.000",
+#     "entryPrice": "0.00000",
+#     "markPrice": "0.00000",
+#     "unRealizedProfit": "0.00000",
+#     "liquidationPrice": "0.00000",
+#     "leverage": "0.00000",
+#     "updateTime": 1615661616
+# }
+
+######## Exness / Futures / Order (Cancel) ##########
+# 取消委託
+DELETE http://localhost:5000/orders/futures
+
+{
+
+}
+
+######## Exness / Futures / Order (Modify) ##########
+# 修改委託
+PUT http://localhost:5000/exness/orders/futures
+
+{
+
+
+}
+
+######## Exness / Futures / Position (Close) ##########
+# 平倉 
+PUT http://localhost:5000/exness/orders/futures
+
+{
+    "symbol": "BTCUSDT",
+    "side": "BUY",
+    "positionAmt": "1.500",
+    "entryPrice": "0.00000",
+    "markPrice": "0.00000",
+    "unRealizedProfit": "0.00000",
+    "updateTime": 1615661616
+}

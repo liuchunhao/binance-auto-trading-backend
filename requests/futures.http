@@ -1,0 +1,296 @@
+######### Futures / Account (帳戶資訊) #########
+
+### 
+GET http://ec2-3-112-51-9.ap-northeast-1.compute.amazonaws.com:5000/futures/position
+###
+GET http://localhost:5000/futures/position
+
+# <= 
+# [
+#     {
+#       "adlQuantile": 1,
+#       "breakEvenPrice": "17021.28972857",
+#       "entryPrice": "19188.75",
+#       "isAutoAddMargin": "false",
+#       "isolated": false,
+#       "isolatedMargin": "0.00000000",
+#       "isolatedWallet": "0",
+#       "leverage": "20",
+#       "liquidationPrice": "41080.17734766",
+#       "marginType": "cross",
+#       "markPrice": "36586.77203922",
+#       "maxNotionalValue": "20000000",
+#       "notional": "-128053.70213727",
+#       "positionAmt": "-3.500",
+#       "positionSide": "BOTH",
+#       "symbol": "BTCUSDT",
+#       "unRealizedProfit": "-60893.07713727",
+#       "updateTime": 1698243602632
+#     },
+# ]
+
+######### Futures / Get All Open Orders (委託查詢) #########
+
+GET http://localhost:5000/futures/order
+
+# <= 
+# {
+#   "code": 0,
+#   "data": [
+#     {
+#       "avgPrice": "0",
+#       "clientOrderId": "WtlH6EopTteaKrn7GcZoKH",
+#       "closePosition": false,
+#       "cumQuote": "0.00000",
+#       "executedQty": "0",
+#       "goodTillDate": 0,
+#       "orderId": 208034812317,
+#       "origQty": "1",
+#       "origType": "LIMIT",
+#       "positionSide": "BOTH",
+#       "price": "80000",
+#       "priceMatch": "NONE",
+#       "priceProtect": false,
+#       "reduceOnly": false,
+#       "selfTradePreventionMode": "NONE",
+#       "side": "SELL",
+#       "status": "NEW",
+#       "stopPrice": "0",
+#       "symbol": "BTCUSDT",
+#       "time": 1699399215457,
+#       "timeInForce": "GTC",
+#       "type": "LIMIT",
+#       "updateTime": 1699399215457,
+#       "workingType": "CONTRACT_PRICE"
+#     }
+#   ],
+#   "msg": "success"
+# }
+
+
+######### Futures / Order (委託下單/限價) #########
+
+POST http://localhost:5000/futures/order
+Content-Type: application/json
+
+{
+    "symbol": "ETHUSDT",
+    "side": "SELL",
+    "type": "LIMIT",
+    "quantity": 0.02,
+    "price": 80000,
+    "timeInForce": "GTC"
+}
+
+# <=
+# {
+#   "avgPrice": "0.00",
+#   "clientOrderId": "WtlH6EopTteaKrn7GcZoKH",
+#   "closePosition": false,
+#   "cumQty": "0.000",
+#   "cumQuote": "0.00000",
+#   "executedQty": "0.000",
+#   "goodTillDate": 0,
+#   "orderId": 208034812317,
+#   "origQty": "1.000",
+#   "origType": "LIMIT",
+#   "positionSide": "BOTH",
+#   "price": "80000.00",
+#   "priceMatch": "NONE",
+#   "priceProtect": false,
+#   "reduceOnly": false,
+#   "selfTradePreventionMode": "NONE",
+#   "side": "SELL",
+#   "status": "NEW",
+#   "stopPrice": "0.00",
+#   "symbol": "BTCUSDT",
+#   "timeInForce": "GTC",
+#   "type": "LIMIT",
+#   "updateTime": 1699399215457,
+#   "workingType": "CONTRACT_PRICE"
+# }
+
+
+######### Futures / Limit Order (OK) #########
+
+POST http://localhost:5000/futures/limitOrder
+Content-Type: application/json
+
+{
+    "symbol": "ETHUSDT",
+    "side": "BUY",
+    "quantity": 0.021,
+    "price": 2058
+}
+
+
+######### Futures / Market Order (OK) #########
+
+POST http://localhost:5000/futures/marketOrder
+Content-Type: application/json
+
+{
+    "symbol": "ETHUSDT",
+    "side": "SELL",
+    "quantity": 0.021
+}
+
+######### Futures / Cancel Order by OrderId #########
+
+DELETE http://localhost:5000/futures/order
+Content-Type: application/json
+
+{
+    "symbol": "ETHUSDT",
+    "orderId": "8389765626846043000"
+}
+
+# <=
+# {
+#   "avgPrice": "0.00",
+#   "clientOrderId": "z8B8rS0jNZTCqYWb61HTNR",
+#   "closePosition": false,
+#   "cumQty": "0.000",
+#   "cumQuote": "0.00000",
+#   "executedQty": "0.000",
+#   "goodTillDate": 0,
+#   "orderId": 208036359453,
+#   "origQty": "1.000",
+#   "origType": "LIMIT",
+#   "positionSide": "BOTH",
+#   "price": "80000.00",
+#   "priceMatch": "NONE",
+#   "priceProtect": false,
+#   "reduceOnly": false,
+#   "selfTradePreventionMode": "NONE",
+#   "side": "SELL",
+#   "status": "CANCELED",
+#   "stopPrice": "0.00",
+#   "symbol": "BTCUSDT",
+#   "timeInForce": "GTC",
+#   "type": "LIMIT",
+#   "updateTime": 1699399430356,
+#   "workingType": "CONTRACT_PRICE"
+# }
+
+######### Futures / Order / Cancel All Open Orders #########
+
+DELETE http://localhost:5000/futures/order/all
+Content-Type: application/json
+
+{
+    "symbol": "BTCUSDT"
+}
+
+# <=
+# {
+#   "code": 0,
+#   "data": {
+#     "code": 200,
+#     "msg": "The operation of cancel all open order is done."
+#   },
+#   "msg": "success"
+# }
+
+
+######### Modify Order #########
+
+PUT http://localhost:5000/futures/order
+Content-Type: application/json
+
+{
+    "symbol": "ETHUSDT",
+    "orderId": "8389765626845594024",
+    "side": "SELL",
+    "price": 79999,
+    "quantity": 0.021
+}
+
+######### Futures / STOP (OK) #########
+
+POST http://localhost:5000/futures/stopLimitOrder
+Content-Type: application/json
+
+{
+    "symbol": "ETHUSDT",
+    "side": "SELL",
+    "stopPrice": 2047.0,
+    "price": 2048.0,
+    "quantity": 0.021
+}
+
+######### Futures / STOP_MARKET #########
+
+# https://binance-docs.github.io/apidocs/futures/cn/#trade-3
+
+### 
+POST http://localhost:5000/futures/stopMarketOrder
+Content-Type: application/json
+
+{
+    "symbol": "ETHUSDT",
+    "side": "BUY",
+    "stopPrice": 1913.0,
+    "quantity": 0.021
+}
+
+# <= 
+# {
+#   "avgPrice": "0.00",
+#   "clientOrderId": "xjsgS05Ky4dAivVykFvL8m",
+#   "closePosition": true,
+#   "cumQty": "0.000",
+#   "cumQuote": "0.00000",
+#   "executedQty": "0.000",
+#   "goodTillDate": 0,
+#   "orderId": 8389765626487747317,
+#   "origQty": "0.000",
+#   "origType": "STOP_MARKET",
+#   "positionSide": "BOTH",
+#   "price": "0.00",
+#   "priceMatch": "NONE",
+#   "priceProtect": false,
+#   "reduceOnly": true,
+#   "selfTradePreventionMode": "NONE",
+#   "side": "SELL",
+#   "status": "NEW",
+#   "stopPrice": "1913.00",
+#   "symbol": "ETHUSDT",
+#   "timeInForce": "GTC",
+#   "type": "STOP_MARKET",
+#   "updateTime": 1699518929929,
+#   "workingType": "CONTRACT_PRICE"
+# }
+
+
+######### Futures / Account Trades #########
+
+GET http://localhost:5000/futures/trades?symbol=ETHUSDT&limit=100
+
+# <=
+# [
+#   {
+#     "buyer": false,
+#     "commission": "-0.07819010",
+#     "commissionAsset": "USDT",
+#     "id": 698759,
+#     "maker": false,
+#     "orderId": 25851813,
+#     "price": "7819.01",
+#     "qty": "0.002",
+#     "quoteQty": "15.63802",
+#     "realizedPnl": "-0.91539999",
+#     "side": "SELL",
+#     "positionSide": "SHORT",
+#     "symbol": "BTCUSDT",
+#     "time": 1569514978020
+#   }
+# ]
+
+
+
+
+
+######### Futures / Order (TRAILING_STOP_MARKET) 追蹤止損市價單 #########
+
+

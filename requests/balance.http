@@ -1,0 +1,111 @@
+########### 餘額查詢 ###########
+### deprecated 
+GET http://localhost:5000/balance/account
+
+
+# <=
+# {
+#     "accountType": "SPOT",
+#     "balances": [
+#         {
+#           "asset": "BTC",
+#           "free": "0.00000000",
+#           "locked": "0.00000000"
+#         },
+#         {
+#           "asset": "USDT",
+#           "free": "5.00000000",
+#           "locked": "0.00000000"
+#         },
+#     ],
+#     "brokered": false,
+#     "buyerCommission": 0,
+#     "canDeposit": true,
+#     "canTrade": true,
+#     "canWithdraw": true,
+#     "commissionRates": {
+#         "buyer": "0.00000000",
+#         "maker": "0.00100000",
+#         "seller": "0.00000000",
+#         "taker": "0.00100000"
+#     },
+#     "makerCommission": 10,
+#     "permissions": [
+#         "SPOT"
+#     ],
+#     "preventSor": false,
+#     "requireSelfTradePrevention": false,
+#     "sellerCommission": 0,
+#     "takerCommission": 10,
+#     "uid": 68805490,
+#     "updateTime": 1699352419247
+# }
+
+
+########### 合約帳戶 / 餘額查詢 ###########
+
+### =>
+GET http://127.0.0.1:5000/balance/futures
+
+# <=
+# [
+#   {
+#     "accountAlias": "FzuXFzSgsRXquXoC",
+#     "asset": "USDT",
+#     "availableBalance": "16538.06493075",
+#     "balance": "77214.13133191",
+#     "crossUnPnl": "-54588.60490587",
+#     "crossWalletBalance": "77214.13133191",
+#     "marginAvailable": true,
+#     "maxWithdrawAmount": "16538.06493075",
+#     "updateTime": 1699352388852
+#   },
+# ]
+
+
+########### 現貨合約 / 餘額查詢 ###########
+
+### =>
+GET http://localhost:5000/balance/spot
+
+# # <=
+# {
+#     "code": 0,
+#     "data": [
+#         {
+#         "asset": "USDT",
+#         "free": "5.00000000",
+#         "locked": "0.00000000"
+#         }
+#     ],
+#     "msg": "success"
+# }
+
+
+########### 資金帳戶 / 餘額查詢 ###########
+### =>
+GET http://localhost:5000/balance/funding
+
+# <=
+# [
+#   {
+#     "adlQuantile": 1,
+#     "breakEvenPrice": "17021.28972857",
+#     "entryPrice": "19188.75",
+#     "isAutoAddMargin": "false",
+#     "isolated": false,
+#     "isolatedMargin": "0.00000000",
+#     "isolatedWallet": "0",
+#     "leverage": "20",
+#     "liquidationPrice": "41058.92148739",
+#     "marginType": "cross",
+#     "markPrice": "34781.34342549",
+#     "maxNotionalValue": "20000000",
+#     "notional": "-121734.70198921",
+#     "positionAmt": "-3.500",
+#     "positionSide": "BOTH",
+#     "symbol": "BTCUSDT",
+#     "unRealizedProfit": "-54574.07698921",
+#     "updateTime": 1698243602632
+#   },
+# ]
